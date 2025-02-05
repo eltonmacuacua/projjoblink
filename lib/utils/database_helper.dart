@@ -55,7 +55,8 @@ class DatabaseHelper{
         cidadaoId TEXT,
         prazo TEXT,
         status TEXT,
-        localizacao TEXT
+        localizacao TEXT,
+        FOREIGN KEY (cidadaoId) REFERENCES usarios (userid)
       )
     ''');
 
@@ -67,10 +68,44 @@ class DatabaseHelper{
         descricao TEXT,
         dataProposta TEXT,
         status TEXT,
-        
-
+        cidadao TEXT,
+        freelancerId TEXT,
+        FOREIGN KEY (cidadaoId) REFERENCES usarios (userid),
+        FOREIGN KEY (freelancerId) REFERENCES usarios (userid)
       )
-    ''')
+    ''');
+
+    await db.execute(
+      '''
+      CREATE TABLE avaliacoes (
+        reviewId TEXT PRIMARY KEY,
+        cidadaoId TEXT,
+        freelancerId TEXT,
+        trabalhoId TEXT,
+        comentario TEXT,
+        nota TEXT,
+        dataCriacao TEXT,
+        FOREIGN KEY (cidadaoId) REFERENCES usuarios (userid),
+        FOREIGN KEY (freelancerId) REFERENCES usuarios (userid),
+        FOREIGN KEY (trabalhoId) REFERENCES trabalhos (jobId)
+      )
+      '''
+    );
+
+    await db.execute(
+      '''
+      CREATE TABLE mensangens(
+        mensagemId TEXT PRIMARY KEY,
+        conteudo TEXT,
+        dataEnvio TEXT,
+        lida TEXT,
+        cidadaoId TEXT,
+        freelancerId TEXT, 
+        FOREIGN KEY (cidadaoId) REFERENCES usuarios (userid),
+        FOREIGN KEY (freelancerId) REFERENCES usuarios (userid)
+      )
+      '''
+    );
   }
 
 }
