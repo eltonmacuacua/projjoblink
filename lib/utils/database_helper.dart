@@ -4,14 +4,14 @@ import 'package:path/path.dart';
 import '../model/user_model.dart';
 
 class DatabaseHelper{
-  static final DatabaseHelper _intance = DatabaseHelper._internal();
+  static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
 
   factory DatabaseHelper() {
     return _instance;
   }
 
-  DatabaseHelper._internal();
+  DatabaseHelper._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -20,7 +20,7 @@ class DatabaseHelper{
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'app_database.db');
+    String path = join(await getDatabasesPath(), 'joblink.db');
     return await openDatabase(
       path,
       version: 1,

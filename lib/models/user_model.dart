@@ -34,4 +34,18 @@ class Usuario{
       'localizacao' : localizacaom
     };
   }
+
+  factory Usuario.fromMap(Map<String, dynamic> Map){
+    return Usuario (
+      userid: map['userid'],
+      nome: map['nome'],
+      email: map['email'],
+      senha: map['senha'],
+      telefone: map['telefone'],
+      tipoDeUsuario: map['tipoDeUsuario'],
+      especializacao: map['especializacao'],
+      dataCadastro: map['dataCadastro'],
+      localizacao: map['localizacao'],
+    );
+  }
 }

@@ -16,6 +16,7 @@ dependencies:
   riverpod: ^2.0.0
   flutter_riverpod: ^2.0.0
   uuid: ^3.0.4
+  crypto: ^3.0.3
   
 
 dev_dependencies:
