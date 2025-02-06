@@ -29,4 +29,15 @@ class Proposta{
     };
   }
 
+  static Proposta fromMap(Map<String, dynamic> map){
+    return Proposta(
+      proposalId: map['proposalId'],
+      valor: map['valor'],
+      descricao: map['descricao'],
+      dataProposta: map['dataProposta'],
+      status: map['status'],
+      cidadaoId: map['cidadaoId'],
+      freelancerId: map['freelancerId'],
+    );
+  }
 }

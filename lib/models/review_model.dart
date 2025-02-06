@@ -28,4 +28,16 @@ class Avaliacao {
       'dataCriacao' : dataCriacao,
     };
   }
+
+  static Avaliacao fromMap(Map<String, dynamic> map){
+    return Avaliacao(
+      reviewId: map['reviewId'],
+      cidadaoId: map['cidadaoId'],
+      freelancerId: map['freelancerId'],
+      trabalhoId: map['trabalhoId'],
+      comentario: map['comentario'],
+      nota: map['nota'],
+      dataCriacao: map['dataCriacao'],
+    );
+  }
 }

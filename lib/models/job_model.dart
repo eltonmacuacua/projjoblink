@@ -18,6 +18,7 @@ class Trabalho {
     required this.categoria,
     required this.orcamento,
     required this.dataCriacao,
+    required this.dataLimite,
     required this.cidadaoId,
     required this.prazo,
     required this.status,
@@ -32,11 +33,28 @@ class Trabalho {
       'categoria' : categoria,
       'orcamento' : orcamento,
       'dataCriacao' : dataCriacao,
+      'dataLimite' : dataLimite,
       'cidadaoId' : cidadaoId,
       'prazo' : prazo,
       'status' : status,
       'localizacao' : localizacao,
     };
+  }
+
+  static Trabalho fromMap(Map<String, dynamic> map){
+    return Trabalho(
+      jobId: map['jobId'],
+      titulo: map['titulo'],
+      descricao: map['descricao'],
+      categoria: map['categoria'],
+      orcamento: map['orcamento'],
+      dataCriacao: map['dataCriacao'],
+      dataLimite: map['dataLimite'],
+      cidadaoId: map['cidadaoId'],
+      prazo: map['prazo'],
+      status: map['status'],
+      localizacao: map['localizacao'],
+    );
   }
 
 }

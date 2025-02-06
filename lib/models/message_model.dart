@@ -22,8 +22,19 @@ class Mensagem {
       'dataEnvio' : dataEnvio, 
       'lida' : lida, 
       'cidadaoId' : cidadaoId, 
-      'cidadaoId' : freelancerId, 
-    }
+      'freelancerId' : freelancerId, 
+    };
+  }
+
+  static Mensagem fromMap(Map<String, dynamic> map){
+    return Mensagem(
+      mensagemId: map['mensagemId'],
+      conteudo: map['conteudo'],
+      dataEnvio: map['dataEnvio'],
+      lida: map['lida'],
+      cidadaoId: map['cidadaoId'],
+      freelancerId: map['freelancerId'],
+    );
   }
 
 

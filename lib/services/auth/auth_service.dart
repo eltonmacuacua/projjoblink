@@ -5,35 +5,35 @@ import '../../models/user_model.dart';
 import '../../utils/database_helper.dart';
 
 class AuthService{
-  final DatabaseHelper _dbHelper = DatabaseHelper.intance;
+  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
-  String _hashPasword(String password) {
+  String _hashPassword(String password) {
     var bytes = utf8.encode(password);
     var digits = sha256.convert(bytes);
     return digits.toString();
   }
 
-  Future<bool> registerUser(Usuario user) async{
-    try{
+  Future<bool> registerUser(Usuario user) async {
+    try {
       final db = await _dbHelper.database;
-
+      
       final List<Map<String, dynamic>> existingUsers = await db.query(
-        'usuarios', 
-        where: 'email = ?', 
+        'usuarios',
+        where: 'email = ?',
         whereArgs: [user.email],
       );
 
-      if(existingUsers.isNotEmpty){
+      if (existingUsers.isNotEmpty) {
         return false;
       }
 
       final userMap = user.toMap();
       userMap['senha'] = _hashPassword(user.senha);
-
+      
       await db.insert('usuarios', userMap);
-      return true
-    } catch(e){
-      print('Erro de cadastro: $e');
+      return true;
+    } catch (e) {
+      print('Erro no registro: $e');
       return false;
     }
   }
@@ -60,15 +60,22 @@ class AuthService{
   }
 
 
-  Future<void> _saveSession(String userid) async{
-    final prefs = await shared_preferences.getInstance();
-    await prefs.setString('userid', userid);
+  Future<void> _saveSession(String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userId', userId);
     await prefs.setBool('isLoggedIn', true);
   }
 
   Future<bool> isLoggedIn() async{
-    final prefs = await shared_preferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isLoggedIn') ?? false;
+  }
+
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userId');
+    await prefs.remove('isLoggedIn');
   }
 
 }

@@ -1,33 +1,44 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../model/user_model.dart';
-
 class DatabaseHelper{
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
-
-  factory DatabaseHelper() {
-    return _instance;
-  }
 
   DatabaseHelper._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDatabase();
-    return _database!;
+
+    try {
+      _database = await _initDB('joblink.db');
+      return _database!;
+    } catch(e){
+      print('Erro ao inicializar o banco de dados: $e');
+      throw Exception('Erro ao inicializar o banco de dados');
+    }
   }
 
-  Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'joblink.db');
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _onCreate,
-    );
+  Future<Database> _initDB(String filePath) async {
+    try {
+      final dbPath = await getDatabasesPath();
+      final path = join(dbPath, filePath);
+
+      return await openDatabase(
+        path, 
+        version: 1, 
+        onCreate: _onCreate, 
+        onOpen: (db) async {
+          print('Banco de dados aberto com sucesso!');
+        },
+      );
+    } catch(e){
+      print('Erro ao inicializar o banco de dados: $e');
+      throw Exception('Erro ao inicializar o banco de dados');
+    }
   }
 
+  
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE usuarios (

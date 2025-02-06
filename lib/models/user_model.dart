@@ -31,12 +31,12 @@ class Usuario{
       'tipoDeUsuario' : tipoDeUsuario,
       'especializacao' : especializacao,
       'dataCadastro' : dataCadastro,
-      'localizacao' : localizacaom
+      'localizacao' : localizacao,
     };
   }
 
-  factory Usuario.fromMap(Map<String, dynamic> Map){
-    return Usuario (
+  static Usuario fromMap(Map<String, dynamic> map){
+    return Usuario(
       userid: map['userid'],
       nome: map['nome'],
       email: map['email'],
