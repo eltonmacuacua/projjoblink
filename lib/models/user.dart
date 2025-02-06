@@ -1,4 +1,5 @@
-class Usuario{
+//lib/models/user.dart
+class Usuario {
   final String userid;
   final String nome;
   final String email;
@@ -21,21 +22,21 @@ class Usuario{
     required this.localizacao,
   });
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      'userid' : userid,
-      'nome' : nome,
-      'email' : email,
-      'senha' : senha,
-      'telefone' : telefone,
-      'tipoDeUsuario' : tipoDeUsuario,
-      'especializacao' : especializacao,
-      'dataCadastro' : dataCadastro,
-      'localizacao' : localizacao,
+      'userid': userid,
+      'nome': nome,
+      'email': email,
+      'senha': senha,
+      'telefone': telefone,
+      'tipoDeUsuario': tipoDeUsuario,
+      'especializacao': especializacao,
+      'dataCadastro': dataCadastro,
+      'localizacao': localizacao,
     };
   }
 
-  static Usuario fromMap(Map<String, dynamic> map){
+  factory Usuario.fromMap(Map<String, dynamic> map) {
     return Usuario(
       userid: map['userid'],
       nome: map['nome'],

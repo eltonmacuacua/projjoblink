@@ -17,19 +17,19 @@ class Avaliacao {
     required this.dataCriacao,
   });
 
-  Map<String, dynamic> toMap(){
-    return{
-      'reviewId' : reviewId,
-      'cidadaoId' : cidadaoId,
-      'freelancerId' : freelancerId,
-      'trabalhoId' : trabalhoId,
-      'comentario' : comentario,
-      'nota' : nota,
-      'dataCriacao' : dataCriacao,
+  Map<String, dynamic> toMap() {
+    return {
+      'reviewId': reviewId,
+      'cidadaoId': cidadaoId,
+      'freelancerId': freelancerId,
+      'trabalhoId': trabalhoId,
+      'comentario': comentario,
+      'nota': nota,
+      'dataCriacao': dataCriacao,
     };
   }
 
-  static Avaliacao fromMap(Map<String, dynamic> map){
+  factory Avaliacao.fromMap(Map<String, dynamic> map) {
     return Avaliacao(
       reviewId: map['reviewId'],
       cidadaoId: map['cidadaoId'],

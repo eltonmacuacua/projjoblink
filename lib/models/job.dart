@@ -11,7 +11,7 @@ class Trabalho {
   final String status;
   final String localizacao;
 
-  Trabalho ({
+  Trabalho({
     required this.jobId,
     required this.titulo,
     required this.descricao,
@@ -25,23 +25,23 @@ class Trabalho {
     required this.localizacao,
   });
 
-  Map<String, dynamic> toMap(){
-    return{
-      'jobId' : jobId,
-      'titulo' : titulo,
-      'descricao' : descricao,
-      'categoria' : categoria,
-      'orcamento' : orcamento,
-      'dataCriacao' : dataCriacao,
-      'dataLimite' : dataLimite,
-      'cidadaoId' : cidadaoId,
-      'prazo' : prazo,
-      'status' : status,
-      'localizacao' : localizacao,
+  Map<String, dynamic> toMap() {
+    return {
+      'jobId': jobId,
+      'titulo': titulo,
+      'descricao': descricao,
+      'categoria': categoria,
+      'orcamento': orcamento,
+      'dataCriacao': dataCriacao,
+      'dataLimite': dataLimite,
+      'cidadaoId': cidadaoId,
+      'prazo': prazo,
+      'status': status,
+      'localizacao': localizacao,
     };
   }
 
-  static Trabalho fromMap(Map<String, dynamic> map){
+  factory Trabalho.fromMap(Map<String, dynamic> map) {
     return Trabalho(
       jobId: map['jobId'],
       titulo: map['titulo'],
@@ -56,5 +56,4 @@ class Trabalho {
       localizacao: map['localizacao'],
     );
   }
-
 }

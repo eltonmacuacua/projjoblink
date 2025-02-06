@@ -1,6 +1,7 @@
+// lib/screens/auth/register_screen.dart
 import 'package:flutter/material.dart';
 import '../../services/auth/auth_service.dart';
-import '../../models/user_model.dart';
+import '../../models/user.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -40,21 +41,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         if (success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Usuário cadastrado com sucesso!')),
+            SnackBar(content: Text('Cadastro realizado com sucesso!')),
           );
           Navigator.pop(context);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content: Text(
-                    'Erro ao cadastrar usuário. Email já existe ou erro no banco de dados!')),
+                    'Erro ao realizar cadastro. Email já existe ou erro no banco de dados.')),
           );
         }
       } catch (e) {
-        print("Erro durante o cadastro: $e");
-
+        print('Erro durante o registro: $e');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao cadastrar usuário: ${e.toString()}')),
+          SnackBar(content: Text('Erro ao realizar cadastro: ${e.toString()}')),
         );
       } finally {
         setState(() => _isLoading = false);
@@ -66,11 +66,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro do Cidadão'),
+        title: Text('Cadastro'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
             child: Column(
@@ -84,12 +84,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Nome é obrigatório, preencha o campo!';
+                      return 'Por favor, insira seu nome';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -99,15 +99,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Email é obrigatório, preencha o campo!';
+                      return 'Por favor, insira seu email';
                     }
                     if (!value.contains('@')) {
-                      return 'Formato de email inválido';
+                      return 'Por favor, insira um email válido';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
                   decoration: InputDecoration(
@@ -117,35 +117,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Senha é obrigatória';
+                      return 'Por favor, insira uma senha';
                     }
                     if (value.length < 6) {
-                      return 'Senha deve ter no mínimo 6 caracteres';
+                      return 'A senha deve ter pelo menos 6 caracteres';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 TextFormField(
                   controller: _phoneController,
                   decoration: InputDecoration(
-                      labelText: 'Telefone', border: OutlineInputBorder()),
+                    labelText: 'Telefone',
+                    border: OutlineInputBorder(),
+                  ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Telefone é obrigatório, preencha o campo!';
+                      return 'Por favor, insira seu telefone';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: _isLoading ? null : _register,
                   child: _isLoading
-                      ? const CircularProgressIndicator()
-                      : const Text('Cadastrar'),
+                      ? CircularProgressIndicator()
+                      : Text('Cadastrar'),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: 16),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -153,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/');
                   },
-                  child: const Text('Já tem uma conta? Faça login!'),
+                  child: Text('Já tem uma conta? Entre!'),
                 ),
               ],
             ),

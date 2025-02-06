@@ -15,18 +15,18 @@ class Mensagem {
     required this.freelancerId,
   });
 
-  Map<String, dynamic> toMap(){
-    return{
-      'mensagemId' : mensagemId, 
-      'conteudo' : conteudo, 
-      'dataEnvio' : dataEnvio, 
-      'lida' : lida, 
-      'cidadaoId' : cidadaoId, 
-      'freelancerId' : freelancerId, 
+  Map<String, dynamic> toMap() {
+    return {
+      'mensagemId': mensagemId,
+      'conteudo': conteudo,
+      'dataEnvio': dataEnvio,
+      'lida': lida,
+      'cidadaoId': cidadaoId,
+      'freelancerId': freelancerId,
     };
   }
 
-  static Mensagem fromMap(Map<String, dynamic> map){
+  factory Mensagem.fromMap(Map<String, dynamic> map) {
     return Mensagem(
       mensagemId: map['mensagemId'],
       conteudo: map['conteudo'],
@@ -36,6 +36,4 @@ class Mensagem {
       freelancerId: map['freelancerId'],
     );
   }
-
-
 }

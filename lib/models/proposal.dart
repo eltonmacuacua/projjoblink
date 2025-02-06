@@ -7,7 +7,7 @@ class Proposta{
   final String cidadaoId;
   final String freelancerId;
 
-  Proposta ({
+  Proposta({
     required this.proposalId,
     required this.valor,
     required this.descricao,
@@ -17,19 +17,19 @@ class Proposta{
     required this.freelancerId,
   });
 
-  Map<String, dynamic> toMap(){
-    return{
-      'proposalId' : proposalId,
-      'valor' : valor,
-      'descricao' : descricao,
-      'dataProposta' : dataProposta,
-      'status' : status,
-      'cidadaoId' : cidadaoId,
-      'freelancerId' : freelancerId,
+  Map<String, dynamic> toMap() {
+    return {
+      'proposalId': proposalId,
+      'valor': valor,
+      'descricao': descricao,
+      'dataProposta': dataProposta,
+      'status': status,
+      'cidadaoId': cidadaoId,
+      'freelancerId': freelancerId,
     };
   }
 
-  static Proposta fromMap(Map<String, dynamic> map){
+  factory Proposta.fromMap(Map<String, dynamic> map) {
     return Proposta(
       proposalId: map['proposalId'],
       valor: map['valor'],
