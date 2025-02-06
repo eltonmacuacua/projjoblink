@@ -7,9 +7,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
 
-  WidgetsFlutterBinding.ensureInitialized();
-  if ()
- 
   runApp(const MyApp());
 }
 
