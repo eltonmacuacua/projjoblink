@@ -1,3 +1,4 @@
+// lib/models/job.dart
 class Trabalho {
   final String jobId;
   final String titulo;

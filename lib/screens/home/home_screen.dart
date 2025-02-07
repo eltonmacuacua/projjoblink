@@ -3,28 +3,73 @@ import 'package:flutter/material.dart';
 import '../../models/user.dart';
 import '../../models/job.dart';
 import '../../services/database/sqlite_helper.dart';
+import '../jobs/job_details_screen.dart';
+import '../profile/profile_screen.dart';
+import '../professional_profiles/professional_profiles_screen.dart';
+import '../jobs/my_jobs_screen.dart';
+import '../notifications/notifications_screen.dart';
+
+int _unreadMessages = 0;
 
 class HomeScreen extends StatelessWidget {
   final Usuario user;
 
   const HomeScreen({Key? key, required this.user}) : super(key: key);
 
+  void _handleLogout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmar Saída'),
+          content: Text('Tem certeza que deseja sair?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await DatabaseHelper.instance.clearUserSession(user.userid);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/',
+                  (route) => false,
+                );
+              },
+              child: Text('Sair'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('JobLink'),
+        title: Text('JobLink - contratante'),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
             onPressed: () {
-              // Implementar notificações
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationsScreen(user: user),
+                ),
+              );
             },
           ),
           IconButton(
             icon: Icon(Icons.person),
             onPressed: () {
-              // Implementar perfil
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(user: user),
+                ),
+              );
             },
           ),
         ],
@@ -60,14 +105,36 @@ class HomeScreen extends StatelessWidget {
               leading: Icon(Icons.work),
               title: Text('Meus Trabalhos'),
               onTap: () {
-                // Implementar navegação
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyJobsScreen(user: user),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: Icon(Icons.message),
               title: Text('Mensagens'),
               onTap: () {
-                // Implementar navegação
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NotificationsScreen(user: user),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.people),
+              title: Text('Perfis de Profissionais'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfessionalProfilesScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -81,8 +148,33 @@ class HomeScreen extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Sair'),
-              onTap: () async {
-                // Implementar logout
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Confirmar Saída'),
+                      content: Text('Tem certeza que deseja sair?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Cancelar'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            // Navega para a tela de login e limpa a pilha de navegação
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              '/',
+                              (route) => false,
+                            );
+                          },
+                          child: Text('Sair'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
           ],
@@ -135,6 +227,15 @@ class HomeScreen extends StatelessWidget {
                           title: Text(job.titulo),
                           subtitle: Text(job.descricao),
                           trailing: Text(job.status),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    JobDetailsScreen(job: job),
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
